@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hello</title>
+    <style>
+     h1{
+         font-size: 12px;
+     }
+     .img-bar{
+       
+        width: 300px;
+    }
+    .img-bar img{
+        width: 100px;
+        height: auto;
+    }
+    video{
+        width: 300px;
+    }
+    </style>
+</head>
+<body>
+    <a href="../../public/doc/JavaScript设计模式.pdf" download="">download</a>
+    {%for x in data%}
+    <h1>{{ x.text }}</h1>
+    <div class="img-bar">
+        <img src="{{ x.image0 }}" alt="">
+    </div>
+    {%if x.videouri %}
+    <video src="{{ x.videouri }}"></video>
+    {% endif %}
+
+    {% endfor %}
+</body>
+</html>
