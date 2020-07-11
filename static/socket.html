@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Socket</title>
+</head>
+
+<body>
+    <input type="text" id="input">
+    <button id="send">send</button>
+    <div id="content"></div>
+
+    <script src="./jquery.js"></script>
+    <script src="./socket.io.js"></script>
+    <script>
+        (() => {
+
+            let input = $('#input'),
+                send = $("#send"),
+                content = $('#content')
+
+            let socket = io("https://ws.socket.com")
+
+            socket.on('connect', function () {});
+            socket.on('send', function (data) {
+                content.append(`<p>${data}</p>`)
+            });
+            socket.on('disconnect', function () {});
+
+            send.on('click', () => {
+                socket.emit("send",input.val())
+                input.val('')
+            })
+        })()
+    </script>
+</body>
+
+</html>

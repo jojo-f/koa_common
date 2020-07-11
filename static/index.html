@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>server sent event</title>
+    <script src="./jquery.js"></script>
+</head>
+
+<body>
+    <textarea name="message" id="message" cols="30" rows="10"></textarea>
+    <button type="submit" id="submit">send</button>
+    <div id="result">
+        1
+    </div>
+
+    <script>
+        (() => {
+            let result = $('#result')
+            const message = $('#message')
+            const send = () => {
+                let value = message.val()
+                $.post('/index/test', {
+                    message: value
+                }, data => {
+                    message.val('')
+                })
+            }
+            message.on('keydown', e => {
+                let {
+                    key
+                } = e
+                if (key === "Enter") {
+                    send()
+                }
+            })
+            $('#submit').on('click', () => {
+                send()
+            })
+            var source = new EventSource("/main-see");
+            source.onmessage = function (event) {
+                let {
+                    timeStamp,
+                    data
+                } = event
+                result.append(`<div>
+                <p>${new Date(timeStamp)}</p>    
+                <p>${data}</p>    
+                </div>`)
+            };
+        })()
+    </script>
+</body>
+
+</html>
